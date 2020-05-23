@@ -1,0 +1,5 @@
+1. - firingMode Single: Mind a kettő üres 
+2. - firingMode Single: Csak az első üres
+3. - firingMode Single: Nem sikerül lőni az elsővel
+4. - firingMode ALL: Csak az elsővel sikerül lőni
+5. - firingMode All: Csak a másodikkal sikerül lőni

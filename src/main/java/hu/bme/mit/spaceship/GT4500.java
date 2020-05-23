@@ -10,9 +10,18 @@ public class GT4500 implements SpaceShip {
 
   private boolean wasPrimaryFiredLast = false;
 
+  public void setWasPrimaryFiredLast(boolean wasPrimaryFiredLast){
+    this.wasPrimaryFiredLast = wasPrimaryFiredLast;
+  }
+
   public GT4500() {
     this.primaryTorpedoStore = new TorpedoStore(10);
     this.secondaryTorpedoStore = new TorpedoStore(10);
+  }
+
+  public GT4500(TorpedoStore primaryTorpedoStore, TorpedoStore secondaryTorpedoStore) {
+    this.primaryTorpedoStore = primaryTorpedoStore;
+    this.secondaryTorpedoStore = secondaryTorpedoStore;
   }
 
   public boolean fireLaser(FiringMode firingMode) {
@@ -80,10 +89,22 @@ public class GT4500 implements SpaceShip {
         // try to fire both of the torpedo stores
         //TODO implement feature
 		
-		if(!primaryTorpedoStore.isEmpty() && !secondaryTorpedoStore.isEmpty()){
-			firingSuccess = primaryTorpedoStore.fire(primaryTorpedoStore.getTorpedoCount()) && 
-							secondaryTorpedoStore.fire(secondaryTorpedoStore.getTorpedoCount());
-		}
+        /*if(!primaryTorpedoStore.isEmpty() && !secondaryTorpedoStore.isEmpty()){
+          firingSuccess = primaryTorpedoStore.fire(primaryTorpedoStore.getTorpedoCount()) && 
+                  secondaryTorpedoStore.fire(secondaryTorpedoStore.getTorpedoCount());
+        }*/
+        boolean primarySuccess = false;
+        boolean secondarySuccess = false;
+        
+        if (!primaryTorpedoStore.isEmpty()) {
+          primarySuccess = primaryTorpedoStore.fire(1);
+          wasPrimaryFiredLast = true;
+        }
+        if (!secondaryTorpedoStore.isEmpty()) {
+          secondarySuccess = secondaryTorpedoStore.fire(1);
+          wasPrimaryFiredLast = false;
+        }
+        firingSuccess = primarySuccess || secondarySuccess;
 
         break;
     }
